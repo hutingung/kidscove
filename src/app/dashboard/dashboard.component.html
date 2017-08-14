@@ -1,0 +1,57 @@
+<div>
+    <form class="member-form">
+      <h1>Member</h1>
+      <div>
+      <md-input-container class="member-full-width">
+        <input #inputId mdInput placeholder="ID" autofocus [(ngModel)]="id" name="id" type="number" autocomplete="off" (ngModelChange)="load(id)">
+      </md-input-container>
+      </div>
+      <div>
+        <button md-raised-button (click)="reset()" *ngIf="id">Reset</button>
+        <button md-raised-button (click)="create()" *ngIf="!(member | async)?.id && id" color="primary">Create</button>
+        <button md-raised-button (click)="checkin()" *ngIf="(member | async)?.status == 'out'" color="accent">Check In</button>
+        <button md-raised-button (click)="checkout()" *ngIf="(member | async)?.status == 'in'" color="warn">Check Out</button>
+      </div>
+      <div *ngIf="expired" class="expired">
+        <h2>Membership expired!!</h2>
+      </div>
+      
+
+
+      <div>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="ID" disabled value="{{(member | async)?.id}}">
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="Name" [ngModel]="(member | async)?.name" (ngModelChange)="member.update({name: $event})" name="name" autocomplete="off">
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="Parent/Guardian Name" [ngModel]="(member | async)?.parentName" (ngModelChange)="member.update({parentName: $event})" name="parentName" autocomplete="off">
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput [mdDatepicker]="expiredDate" placeholder="Expired Date" [ngModel]="(member | async)?.expiredDate" name="expiredDate" (ngModelChange)="member.update({expiredDate: $event})">
+            <button mdSuffix [mdDatepickerToggle]="expiredDate"></button>
+            <md-datepicker #expiredDate></md-datepicker>
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput [mdDatepicker]="dateOfBirth" placeholder="Date of birth" [ngModel]="(member | async)?.dateOfBirth" name="dateOfBirth" (ngModelChange)="member.update({dateOfBirth: $event})">
+            <button mdSuffix [mdDatepickerToggle]="dateOfBirth"></button>
+            <md-datepicker #dateOfBirth></md-datepicker>
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="Last In Date" [ngModel]="(member | async)?.lastInDate | date: 'short'" name="lastInDate" disabled>
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="Last Out Date" [ngModel]="(member | async)?.lastOutDate | date: 'short'" name="lastOutDate" disabled>
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="Status" [ngModel]="(member | async)?.status" name="status" disabled>
+          </md-input-container>
+          <md-input-container class="member-full-width">
+            <input mdInput placeholder="MemberType" [ngModel]="(member | async)?.memberType" name="memberType" (ngModelChange)="member.update({memberType: $event})">
+          </md-input-container>
+          
+    </div>
+
+    </form>
+</div>

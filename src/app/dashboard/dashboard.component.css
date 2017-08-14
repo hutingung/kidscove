@@ -1,0 +1,12 @@
+.member-form {
+  width: 500px;
+  margin: 0 auto; 
+}
+
+.member-full-width {
+  width: 100%;
+}
+
+.expired {
+    color: red;
+}
