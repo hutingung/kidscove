@@ -1,0 +1,13 @@
+.story-form {
+  width: 500px;
+  margin: 0 auto; 
+}
+
+
+.story-full-width {
+  width: 100%;
+}
+
+.expired {
+    color: red;
+}
