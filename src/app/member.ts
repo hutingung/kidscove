@@ -6,4 +6,5 @@ export interface Member {
   status?: string;
   lastInDate?: Date;
   lastOutDate?: Date;
+  type?: string;
 }
