@@ -1,0 +1,76 @@
+<div>
+    <md-table #table [dataSource]="dataSource">
+
+      <ng-container cdkColumnDef="id">
+        <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+      </ng-container>
+
+      <ng-container cdkColumnDef="description">
+        <md-header-cell *cdkHeaderCellDef> Description </md-header-cell>
+        <md-cell *cdkCellDef="let row">  {{row.description}} </md-cell>
+      </ng-container>
+      
+      <ng-container cdkColumnDef="datetime">
+        <md-header-cell *cdkHeaderCellDef> Story Time </md-header-cell>
+        <md-cell *cdkCellDef="let row">  {{row.datetime | date}} </md-cell>
+      </ng-container>
+      
+      <ng-container cdkColumnDef="total">
+        <md-header-cell *cdkHeaderCellDef> Total </md-header-cell>
+        <md-cell *cdkCellDef="let row">  {{row.total}} </md-cell>
+      </ng-container>
+      
+      <ng-container cdkColumnDef="edit">
+        <md-header-cell *cdkHeaderCellDef> Edit </md-header-cell>
+        <md-cell *cdkCellDef="let row">
+          <button md-raised-button (click)="edit(row)">Edit</button>
+          <button md-raised-button (click)="delete(row)" color="warn">Delete</button>
+        </md-cell>
+      </ng-container>
+
+      <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+
+    </md-table>
+    <md-paginator #paginator
+                  [length]="dataLength?.length"
+                  [pageIndex]="0"
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25, 100]">
+    </md-paginator>
+</div>
+<div>
+    <form class="story-form">
+          <input type="hidden" disabled value="{{(keys | async)?.stories}}" #inputId>
+          <input type="hidden" disabled value="{{(story | async)?.total}}" #inputTotal>
+          
+          <md-input-container class="story-full-width">
+            <input mdInput placeholder="ID" [ngModel]="(story | async)?.id" name="id" autocomplete="off" disabled>
+          </md-input-container>
+          <md-input-container class="story-full-width">
+            <input mdInput placeholder="Description" [ngModel]="(story | async)?.description" (ngModelChange)="story.update({description: $event})" name="description" autocomplete="off">
+          </md-input-container>
+          <md-input-container class="story-full-width">
+            <input mdInput [mdDatepicker]="datetime" placeholder="Date" [ngModel]="(story | async)?.datetime" name="datetime" (ngModelChange)="story.update({datetime: $event}); story.update({datetimestamp: $event.getTime()})">
+            <button mdSuffix [mdDatepickerToggle]="datetime"></button>
+            <md-datepicker #datetime></md-datepicker>
+          </md-input-container>
+          <h3>Participants</h3>
+          <ol>
+            <li *ngFor="let participant of participants | async">
+              {{participant.name}} ({{participant.id}}) - {{participant.signupdate | date}} <button md-raised-button color="warn" (click)="deleteParticipant(participant)">Delete</button>
+            </li>
+            <li *ngIf="story && !full">
+                <md-input-container class="story-full-width">
+                    <input mdInput placeholder="ID" value="" [(ngModel)]="id" name="participantId" type="number"  autocomplete="off" >
+                </md-input-container>
+                <button md-raised-button color="primary" (click)="addParticipant(id)" *ngIf="!full">Add Participant</button>
+            </li>
+            <h3 *ngIf="full">Full!!</h3>
+          </ol>
+        <button md-raised-button (click)="reset()" *ngIf="story">Reset</button>
+        <button md-raised-button (click)="create()" *ngIf="!story">Create</button>
+    </form>
+</div>
