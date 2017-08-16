@@ -19,6 +19,7 @@ import { StoriesComponent } from './stories/stories.component';
 
 
 import { StoriesAdminService, StoriesAdminSource, StoryDatabase } from './stories/stories-admin.service';
+import { MembersAdminService, MembersAdminSource, MemberDatabase } from './dashboard/members-admin.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { StoriesAdminService, StoriesAdminSource, StoryDatabase } from './storie
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
-  providers: [StoriesAdminService, StoriesAdminSource, StoryDatabase],
+  providers: [StoriesAdminService, StoriesAdminSource, StoryDatabase, MembersAdminService, MembersAdminSource, MemberDatabase],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
