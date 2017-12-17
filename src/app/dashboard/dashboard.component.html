@@ -43,6 +43,8 @@
         <button md-raised-button (click)="create()" *ngIf="!(member | async)?.id && id" color="primary">Create</button>
         <button md-raised-button (click)="checkin()" *ngIf="(member | async)?.status == 'out'" color="accent">Check In</button>
         <button md-raised-button (click)="checkout()" *ngIf="(member | async)?.status == 'in'" color="warn">Check Out</button>
+        <button md-raised-button (click)="loadData()" color="primary">Load Data</button>
+        
       </div>
       <div *ngIf="expired" class="expired">
         <h2>Membership expired!!</h2>
