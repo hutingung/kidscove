@@ -1,0 +1,13 @@
+<div>
+    <form class="member-form">
+      <h1>Add Holiday</h1>
+      <div>
+          <md-input-container class="member-full-width">
+            <input #inputId mdInput placeholder="No of days" autofocus [(ngModel)]="days" name="days" type="number" autocomplete="off">
+          </md-input-container>
+      </div>
+      <div>
+        <button md-raised-button (click)="update(days)">Update</button>
+      </div>
+    </form>
+</div>
