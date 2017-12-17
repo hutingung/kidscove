@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Injectable  } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
+import { Http, Response } from '@angular/http';
 
 import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { MdPaginator } from '@angular/material';
@@ -46,7 +47,7 @@ export class DashboardComponent implements OnInit {
 
   public dataLength: any; // For member counter on DOM.
   
-  constructor(private membersAdminService: MembersAdminService, private memberDatabase: MemberDatabase, db: AngularFireDatabase) { 
+  constructor(private membersAdminService: MembersAdminService, private memberDatabase: MemberDatabase, db: AngularFireDatabase, private http: Http) { 
     this.db = db
     this.expired = false;
   }
@@ -56,6 +57,15 @@ export class DashboardComponent implements OnInit {
             this.dataSource = new MembersAdminSource(this.memberDatabase, this.paginator);
             this.dataLength = members;
     });
+  }
+  
+  loadData(member: Member): void {
+        const url ='https://quickbooks.api.intuit.com/v3/company/123145862902554/query?query=select%20%2A%20from%20Customer%20Where%20Metadata.CreateTime%20%3E%20%272017-08-15%27&minorversion=4';
+    this.http
+    .get(url)
+    .toPromise()
+    .then(() => member);
+
   }
   
   load(id: number): void {

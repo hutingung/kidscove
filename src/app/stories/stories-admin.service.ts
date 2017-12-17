@@ -39,7 +39,7 @@ export class StoryDatabase {
     private database = this.storiesAdminService.af.list('/membership/stories/', {
         query: {
             orderByChild: 'datetimestamp',
-            startAt: {key: 'datetimestamp', value: new Date().getTime() - 12096e5}
+            startAt: {key: 'datetimestamp', value: new Date().getTime() - 8.64e+7}
         }
     });
     public getStories(): FirebaseListObservable<Story[]> {

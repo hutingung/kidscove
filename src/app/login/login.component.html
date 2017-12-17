@@ -1,3 +1,26 @@
-<p>
-  login works!
-</p>
+<div> {{ (user | async)?.uid }} </div>
+<div>
+  <button (click)="login()">Login</button>
+  <button (click)="logout()">Logout</button>
+</div>
+
+<div>
+
+    <h1 *ngIf="!name">
+    Hallo
+    </h1>
+    <h1 *ngIf="name">
+        Hallo, {{name}}
+    </h1>
+
+    <button class="btn btn-default" (click)="loginIntuit()">
+        Login
+    </button>
+    <button class="btn btn-default" (click)="logoutIntuit()">
+        Logout
+    </button>
+
+    <div>
+        Username/Passwort zum Testen: max/geheim
+    </div>
+</div>

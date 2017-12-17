@@ -6,6 +6,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import {HttpModule} from "@angular/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './material/app-material.module';
@@ -20,6 +22,7 @@ import { StoriesComponent } from './stories/stories.component';
 
 import { StoriesAdminService, StoriesAdminSource, StoryDatabase } from './stories/stories-admin.service';
 import { MembersAdminService, MembersAdminSource, MemberDatabase } from './dashboard/members-admin.service';
+import { HolidayComponent } from './holiday/holiday.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { MembersAdminService, MembersAdminSource, MemberDatabase } from './dashb
     MembersComponent,
     MemberDetailComponent,
     LoginComponent,
-    StoriesComponent
+    StoriesComponent,
+    HolidayComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,9 @@ import { MembersAdminService, MembersAdminSource, MemberDatabase } from './dashb
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
-    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
+    OAuthModule.forRoot(),
+    HttpModule
   ],
   providers: [StoriesAdminService, StoriesAdminSource, StoryDatabase, MembersAdminService, MembersAdminSource, MemberDatabase],
   bootstrap: [AppComponent]
